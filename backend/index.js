@@ -15,5 +15,5 @@ app.use('/api/auth',auth)
 
 
 app.listen(5000,()=>{
-    console.log("running")
+    console.log("running on 5000")
 })
