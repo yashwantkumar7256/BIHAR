@@ -20,5 +20,5 @@ app.use('/api/profile',profile)
 
 
 app.listen(5000,()=>{
-    console.log("running on 5000")
+    console.log("running on port 5000")
 })
