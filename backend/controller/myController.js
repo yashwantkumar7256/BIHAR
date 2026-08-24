@@ -15,7 +15,7 @@ const chat = async (req, res) => {
     return res.json("enter courseslug or question");
   }
 
-  const course = courseModel.findOne({
+  const course = await courseModel.findOne({
     courseSlug,
     isActive: true,
   });
