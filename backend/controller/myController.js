@@ -29,7 +29,7 @@ const chat = async (req, res) => {
     });
     return res.status(301).json({
       message: "plese select valid course",
-      success: flase,
+      success: false,
       courses,
     });
   }
