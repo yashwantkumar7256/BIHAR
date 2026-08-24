@@ -27,7 +27,7 @@ const chat = async (req, res) => {
       price: 1,
       duration: 1,
     });
-    return res.status(3001).json({
+    return res.status(301).json({
       message: "plese select valid course",
       success: flase,
       courses,
