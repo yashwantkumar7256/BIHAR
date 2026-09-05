@@ -26,11 +26,11 @@ const App = () => {
     if(searchItem ==="") return;
     let timer=setTimeout(()=>{
  filterData()
-    },300)
+    },500)
     return ()=>{
       clearTimeout(timer)
     }
-  },[searchItem])
+  },[searchItem,products])
 
   const getProducts = async () => {
     let res = await axios.get("https://fakestoreapi.com/products");
@@ -55,6 +55,9 @@ const App = () => {
             placeholder="search bar"
           ></input>
         </div>
+
+        
+   
         {filtered.map((item) => {
           return (
           
@@ -70,3 +73,5 @@ const App = () => {
 };
 
 export default App;
+
+
