@@ -5,6 +5,8 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import LoginLayout from "../Layout/LoginLayout";
 import ProtectedRoute from "./ProtectedRoute";
+import Shop from "../pages/Shop";
+import Contect from "../pages/Contect";
 
 const AppRoutes = () => {
   let router = createBrowserRouter([
@@ -19,6 +21,14 @@ const AppRoutes = () => {
               path: "",
               element: <Home />,
             },
+            {
+              path:'/shop',
+              element:<Shop/>
+            },
+            {
+              path:"/contect",
+              element:<Contect/>
+            }
           ],
         },
       ],
