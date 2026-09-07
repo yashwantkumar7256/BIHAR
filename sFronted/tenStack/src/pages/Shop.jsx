@@ -1,52 +1,26 @@
+import React from 'react'
+
+import {useQuery} from "@tanstack/react-query"
+ import { getProductDataApi } from "../api/ProductApi";
 
 
-
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-
-const getData = async () => {
-  console.log("api called");
-
-  const res = await axios.get(
-    "https://fakestoreapi.com/products"
-  );
-
-  console.log(res.data);
-
-  return res.data;
-};
-
-const Product = () => {
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    
-    queryKey: ["products"],
-    queryFn: getData,
-     staleTime: Infinity,
-  });
-
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
-
-  if (isError) {
-    return <h2>{error.message}</h2>;
-  }
+const Shop = () => {
+  
+  const {data,isLoading,isError,error}=useQuery({
+    querykey:["products"],
+    queryFn:getProductDataApi,
+    staleTime:Infinity,
+})
+  console.log(data)
 
   return (
     <div>
-      {data?.map((product) => (
-        <div key={product.id}>
-          <h2>{product.title}</h2>
-          <p>${product.price}</p>
-        </div>
-      ))}
+         {data?.map((products)=>(
+   <div>{products.title}</div>
+         ))}
     </div>
-  );
-};
+  )
+}
 
-export default Product;
+export default Shop
+
