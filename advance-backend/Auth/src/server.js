@@ -1,8 +1,9 @@
-const express =require ("express")
-   
-const app=express();
+import app from "./app/app.js"
+import { connectToDB } from "./config/db.js"
 
 
+
+await connectToDB()
 app.listen(3000,()=>{
     console.log("hello")
 })
