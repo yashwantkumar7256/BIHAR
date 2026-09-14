@@ -1,9 +1,8 @@
 import app from "./app/app.js"
 import { connectToDB } from "./config/db.js"
-
-
+ 
 
 await connectToDB()
 app.listen(3000,()=>{
-    console.log("hello")
+    console.log("3000")
 })
