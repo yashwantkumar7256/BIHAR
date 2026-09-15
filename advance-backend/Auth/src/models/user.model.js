@@ -15,12 +15,12 @@ const userSchema=new mongoose.Schema({
         required:true,
         unique:[true, "email already exist"]
     },
-    passwordHased:{
+    passwordHash:{
         type:String,
         required:true,
 
     },
-    accesssToken:{
+    refreshToken:{
         type:String,
        
     }
