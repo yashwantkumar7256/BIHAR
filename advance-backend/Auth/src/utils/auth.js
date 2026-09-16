@@ -1,28 +1,28 @@
+import jwt from "jsonwebtoken";
 
+import config from "../config/config.js";
 
-import jwt from "jsonwebtoken"
+export const generateTokens = ({ userId }) => {
+  console.log("auth called");
 
-import config from "../config/config.js"
+  const accessToken = jwt.sign({ id: userId }, config.ACCESS_TOKEN_SECRET, {
+    expiresIn: "15m",
+  });
+  const refreshToken = jwt.sign({ id: userId }, config.REFRESH_TOKEN_SECRET, {
+    expiresIn: "7d",
+  });
+  console.log(accessToken, refreshToken);
+  return { accessToken, refreshToken };
+};
 
-export const generateTokens= ({ userId }) => {
-    console.log("auth called")
+export const verifyAccessToken = (token) => {
+  const decoded = jwt.verify(token, config.ACCESS_TOKEN_SECRET);
 
-    const accessToken = jwt.sign({ id: userId }, config.ACCESS_TOKEN_SECRET, { expiresIn: "15m" })
-    const refreshToken = jwt.sign({ id: userId }, config.REFRESH_TOKEN_SECRET, { expiresIn: "7d" })
-  console.log(accessToken,refreshToken)
-    return { accessToken, refreshToken }
-}
+  return decoded;
+};
 
-export const verifyAccessToken=(token)=>{
-    const decoded =jwt.verify(token,config.ACCESS_TOKEN_SECRET)
+export const verifyRefreshToken = (token) => {
+  const decoded = jwt.verify(token, config.REFRESH_TOKEN_SECRET);
 
-    return decoded
-}
-
-export const verifyRefreshToken=(token)=>{
-    const decoded=jwt.verify(token,config.REFRESH_TOKEN_SECRET)
-
-    return decoded
-
-}
-
+  return decoded;
+};
