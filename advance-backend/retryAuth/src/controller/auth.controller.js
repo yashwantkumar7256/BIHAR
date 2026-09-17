@@ -1,9 +1,7 @@
 
-
-
 import userModel from "../models/auth.model.js";
 import bcrypt from "bcrypt"
-import {genrateToken} from "../utils/auth.util.js"
+import {genrateToken, verifyAccessToken} from "../utils/auth.util.js"
 import cookie from "cookie-parser"
 
 export const register= async(req,res)=>{
@@ -39,7 +37,7 @@ export const register= async(req,res)=>{
         message:"user created successfully",
         user,
         accessToken,
-        refreshToken
+        
 
        })
   }catch(err){
@@ -49,4 +47,47 @@ export const register= async(req,res)=>{
 }
 
 
+ export const login=async (req,res)=>{
 
+ const token = req.headers.authorization;
+
+console.log("FULL TOKEN:", token);
+
+if (!token) {
+  return res.json("token is required");
+}
+
+const accessToken = token.split(/\s+/)[1];
+
+
+
+if (!accessToken) {
+  return res.json("access token not found");
+}
+
+try {
+  const decode = verifyAccessToken(accessToken);
+
+  const user= await userModel.findById(decode.id)
+  
+
+
+return res.json({
+  user:{
+    username: user.name,
+   email:user.email
+  }
+});
+
+} catch (err) {
+  
+  console.log(err.message);
+  return res.json(err.message)
+}}
+
+export const refresh=(req,res)=>{
+  let refreshtoken=req.cookies.refreshToken
+  console.log("cookie",refreshtoken)
+  res.json("hello")
+
+}
