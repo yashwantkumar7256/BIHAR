@@ -1,0 +1,50 @@
+import express from "express";
+import generateCode from "../utils/generateCode.js";
+import urlModel from "../models/url.model.js"
+
+const router = express.Router();
+
+
+router.post("/generate",async (req, res) => { 
+  const {url}=req.body
+  if(!url){
+    return res.json({message:"please enter url"})
+  }
+  if((url.startsWith("http://")==false) && (url.startsWith("https://")==false) ){
+    return res.json({message:"url wrong"})
+  }
+  if(url.length>2048){
+    return res.json({message:"url too long"})
+  }
+  const code=generateCode()
+
+  const newUrl= await urlModel.create({
+     originalUrl:url,
+    shortCode:code
+  })
+  return res.status(200).json({
+    message:"url shorted successfully",
+    data:{
+      originalUrl:newUrl. originalUrl,
+      shortCode:newUrl.shortCode
+    }
+  })
+});
+
+router.get("/:id",async (req,res)=>{
+  
+  const {id}=req.params
+  const url= await url.Model.findById(id)
+  if(url){
+    return res.json({message:"url not found"})
+  }
+  await urlModel.findByIdAndDelete(id)
+
+  return res.status(200).json({
+    message:"url deleted successfully"
+  })
+
+})
+
+
+export default router;
