@@ -13,6 +13,9 @@ export function createAccessToken({ userId, role }) {
    return accessToken;
 }
 
+export const readAccessToken=(accessToken)=>{
+   return jwt.verify(accessToken,config.ACCESS_TOKEN_SECRET)
+}
 export const createRefreshToken=({userId,role})=>{
   
    const refreshToken=jwt.sign( {userId,role},
@@ -22,3 +25,6 @@ export const createRefreshToken=({userId,role})=>{
 }
 
 
+export  const readRefreshToken=(refreshToken)=>{
+   return jwt.verify(refreshToken,config.REFRESH_TOKEN_SECRET)
+}
