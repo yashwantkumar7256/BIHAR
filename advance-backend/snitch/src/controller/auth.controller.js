@@ -49,6 +49,9 @@ export const register=async (req,res)=>{
 
 
     }catch(err){
+        res.status(401).json({
+            message:err.message
+        })
         return res.json(err.message)
     }
 
@@ -145,7 +148,8 @@ export const refresh= async (req,res)=>{
             user:{
                 email:user.email,
                 name:user.name,
-                id:user._id
+                id:user._id,
+                accessToken
             }
         }
       })
@@ -160,8 +164,20 @@ export const refresh= async (req,res)=>{
 }
 
 
-// const getMe= async (req,res)=>{
-//     const {userId,role}=req.user
-//     const user=
+ export const getMe= async (req,res)=>{
+    const {userId,role}=req.user
+    const user= await UserModel.findById(userId)
 
-// }
+    res.status(200).json({
+        message:"user data fetch successfully",
+        data:{
+            user:{
+                email:user.email,
+                name:user.name,
+                id:user._id,
+
+            }
+        }
+    })
+
+}
