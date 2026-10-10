@@ -93,7 +93,9 @@ export const login=async (req,res)=>{
                 user:{
                     id:user._id,
                     name:user.name,
-                    email:user.email
+                    email:user.email,
+                    role:user.role,
+                    accessToken
 
                 }
             }
@@ -149,6 +151,7 @@ export const refresh= async (req,res)=>{
                 email:user.email,
                 name:user.name,
                 id:user._id,
+                role:user.role,
                 accessToken
             }
         }
@@ -181,3 +184,4 @@ export const refresh= async (req,res)=>{
     })
 
 }
+
