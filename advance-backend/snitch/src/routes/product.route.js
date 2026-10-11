@@ -19,11 +19,30 @@ const router=express.Router()
 
 
 
-router.post("/",authenticate,authenticateSaller,upload.array("images"),
-(req,res,next)=>{
-    req.body?.price && (req.body.price=JSON.parse(req.body.price))
-    req.body?.sezes && (req.body.sizes=JSON.parse(req.body.sizes))
-    next()
-},createProductValidator,createProduct)
+router.post(
+  "/",
+  authenticate,
+  authenticateSaller,
+  upload.array("images"),
+ (req, res, next) => {
+  try {
+    if (req.body.price) {
+      req.body.price = JSON.parse(req.body.price);
+    }
+
+    if (req.body.sizes) {
+      req.body.sizes = JSON.parse(req.body.sizes);
+    }
+
+    next();
+  } catch (error) {
+    return res.status(400).json({
+      message: "Invalid JSON in price or sizes"
+    });
+  }
+},
+  createProductValidator,
+  createProduct
+);
 
 export default router

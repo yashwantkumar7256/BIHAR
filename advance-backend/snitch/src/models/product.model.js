@@ -31,7 +31,7 @@ sizes:[
     {
         size:{
             type:String,
-            enum:["xs","s","m","l","xl","xxl"]
+            enum:["XS","S","M","L","XL","XXL"]
         },
         stock:{
             type:Number,
@@ -44,7 +44,7 @@ sizes:[
     }
 ],
 
-saller:{
+seller:{
     type:mongoose.Types.ObjectId,
     ref:"users",
     required:true
@@ -52,6 +52,10 @@ saller:{
 published:{
     type:Boolean,
     default:false
+},
+images: {
+    type: [String],
+    required: true
 }
 
 
