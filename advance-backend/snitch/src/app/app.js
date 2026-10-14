@@ -2,7 +2,7 @@ import express from "express"
 import router from "../routes/auth.routes.js"
 import cookieParser from "cookie-parser"
 import productRouter from "../routes/product.route.js"
-
+import cartRouter from "../routes/cart.route.js"
 
 
  const app=express()
@@ -13,6 +13,8 @@ app.use(cookieParser())
 
  app.use("/api/auth",router)
  app.use("/api/products",productRouter)
+app.use("/api/cart",cartRouter)
+
 
 
  export default app
